@@ -1,3 +1,11 @@
+//i am going to code a new project here//
+// Create a web application using html, css and javascript that lets you search for an actor and display information about that actor or actress, display a list of his or her films, display images of actors/actresses, and keep a history of consultations.
+//these are the MAIN FEATURES :
+//Search for an actor or actress Display information about this person 
+//Display list of films
+//Display actors' images
+//Save consultation history
+
 import { TOKEN } from "./env";
 import { URL } from "./env";
 
