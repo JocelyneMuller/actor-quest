@@ -33,8 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                displayResults(data.results); // Affiche les résultats obtenus
+                if (data && data.results) {
+                    displayResults(data.results);
+                } else {
+                    resultsContainer.innerHTML = '<p>Aucun résultat trouvé.</p>';
+                }
             })
+            
             .catch(error => {
                 console.error('Erreur lors de la requête API:', error);
                 resultsContainer.innerHTML = '<p>Erreur lors de la recherche. Veuillez réessayer.</p>';
