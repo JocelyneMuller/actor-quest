@@ -71,6 +71,18 @@ main {
     border: 2px solid; /* Bordure pour démarquer les zones */
 }
 
+/*style to show results as a grid */
+.actor-item {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    text-align: center;
+
+.actor-item img{
+
+}
+
 /* Zone des résultats (bleue) */
 #results-container {
     background-color: #e6f2ff;
