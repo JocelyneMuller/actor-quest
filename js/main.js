@@ -5,7 +5,7 @@
 //Display list of films
 //Display actors' images
 //Save consultation history
-
+// js/main.js
 import { TOKEN } from "./env";
 import { URL } from "./env";
 
@@ -13,26 +13,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search-form');
     const actorNameInput = document.getElementById('actor-name');
     const resultsContainer = document.getElementById('results-container');
-    const displayContainer = document.getElementById('display-container');
+    const defaultImage = 'default-image.jpg'; // Chemin de l'image par défaut
 
+    // Écouteur d'événement pour le formulaire de recherche
     searchForm.addEventListener('submit', (event) => {
-        event.preventDefault(); 
+        event.preventDefault(); // Empêche le rechargement de la page
 
-        const actorName = actorNameInput.value.trim();
+        const actorName = actorNameInput.value.trim(); // Récupère et nettoie l'entrée de l'utilisateur
         if (actorName !== '') {
-            searchActor(actorName);
+            searchActor(actorName); // Appelle la fonction pour lancer la recherche
         }
     });
 
     // Fonction pour rechercher un acteur dans l'API TMDb
     function searchActor(name) {
-        // Exemple d'URL de requête API (remplacez `YOUR_API_KEY` par votre clé API TMDb)
-        const url = `https://api.themoviedb.org/3/search/person?api_key=YOUR_API_KEY&query=${encodeURIComponent(name)}`;
+        // Utilisation de URL et TOKEN pour construire l'URL de l'API
+        const url = `${URL}/search/person?api_key=${TOKEN}&query=${encodeURIComponent(name)}`;
 
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                displayResults(data.results);
+                displayResults(data.results); // Affiche les résultats obtenus
             })
             .catch(error => {
                 console.error('Erreur lors de la requête API:', error);
@@ -53,20 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const actorItem = document.createElement('div');
             actorItem.classList.add('actor-item');
             actorItem.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w185${actor.profile_path || ''}" alt="${actor.name}" onerror="this.src='default-image.jpg';">
+                <img src="https://image.tmdb.org/t/p/w185${actor.profile_path || ''}" alt="${actor.name}" onerror="this.src='${defaultImage}';">
                 <h3>${actor.name}</h3>
             `;
-            actorItem.addEventListener('click', () => displayActorDetails(actor));
             resultsContainer.appendChild(actorItem);
         });
-    }
-
-    function displayActorDetails(actor) {
-        displayContainer.innerHTML = `
-            <h2>${actor.name}</h2>
-            <p>Age: Calculer l'âge ici (exemple)</p>
-            <p>Biographie: ${actor.biography || 'Biographie non disponible.'}</p>
-            <!-- Autres informations pertinentes -->
-        `;
     }
 });
