@@ -78,10 +78,21 @@ main {
     height: 100px;
     margin: 10px;
     text-align: center;
-
-.actor-item img{
-
 }
+
+.actor-item img {
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+    
+.actor-item h3 {
+        font-size: 1rem;
+        margin: 0;
+    }
+
 
 /* Zone des résultats (bleue) */
 #results-container {
