@@ -6,8 +6,8 @@
 //Display actors' images
 //Save consultation history
 // js/main.js
-import { TOKEN } from "./env";
-import { URL } from "./env";
+import { TOKEN } from "./env.js";
+import { URL } from "./env.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search-form');
