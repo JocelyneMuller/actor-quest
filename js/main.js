@@ -1,3 +1,6 @@
+import { TOKEN } from "./env";
+import { URL } from "./env";
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search-form');
     const actorNameInput = document.getElementById('actor-name');
