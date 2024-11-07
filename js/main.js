@@ -90,7 +90,7 @@ function displayActorDetails(actorId) {
             return response.json();
         })
         .then(data => {
-            // Affiche les détails de l'acteur dans detailsContainer
+            // Show details about detailsContainer
             detailsContainer.innerHTML = `
                 <h2>${data.name}</h2>
                 <img src="${data.profile_path ? `https://image.tmdb.org/t/p/w185${data.profile_path}` : defaultImage}" alt="${data.name}">
