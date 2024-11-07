@@ -77,3 +77,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Je déclare ma fonction pour obtenir et afficher les détails de l'acteur sélectionné
+function displayActorDetails(actorId) {
+    const url = `${URL}/person/${actorId}?api_key=${TOKEN}&language=fr-FR`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP : ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Affiche les détails de l'acteur dans detailsContainer
+            detailsContainer.innerHTML = `
+                <h2>${data.name}</h2>
+                <img src="${data.profile_path ? `https://image.tmdb.org/t/p/w185${data.profile_path}` : defaultImage}" alt="${data.name}">
+                <p><strong>Âge :</strong> ${calculateAge(data.birthday, data.deathday)}</p>
+                <p><strong>Biographie :</strong> ${data.biography || 'Biographie non disponible.'}</p>
+            `;
+        })
+        .catch(error => {
+            console.error('Erreur lors de la requête API:', error);
+            detailsContainer.innerHTML = '<p>Erreur lors de l\'affichage des détails. Veuillez réessayer.</p>';
+        });
+}
