@@ -15,14 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('results-container');
     const defaultImage = '../assets/images/default-image.jpg'; 
 
-// Écouteur d'événement pour le formulaire de recherche
+    // Écouteur d'événement pour le formulaire de recherche
     searchForm.addEventListener('submit', (event) => {
         event.preventDefault(); // Empêche le rechargement de la page
-        
-// Récupère et nettoie l'entrée de l'utilisateur
+
+        // Récupère et nettoie l'entrée de l'utilisateur
         const actorName = actorNameInput.value.trim(); 
         if (actorName !== '') {
             searchActor(actorName); 
+        } else {
+            resultsContainer.innerHTML = '<p>Veuillez entrer un nom d\'acteur.</p>';
         }
     });
 
@@ -32,7 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = `${URL}/search/person?api_key=${TOKEN}&query=${encodeURIComponent(name)}`;
 
         fetch(url)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP : ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data && data.results) {
                     displayResults(data.results);
@@ -40,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     resultsContainer.innerHTML = '<p>Aucun résultat trouvé.</p>';
                 }
             })
-            
             .catch(error => {
                 console.error('Erreur lors de la requête API:', error);
                 resultsContainer.innerHTML = '<p>Erreur lors de la recherche. Veuillez réessayer.</p>';
@@ -50,17 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fonction pour afficher les résultats de la recherche
     function displayResults(results) {
         resultsContainer.innerHTML = ''; // Efface les résultats précédents
-
+    
         if (results.length === 0) {
             resultsContainer.innerHTML = '<p>Aucun résultat trouvé.</p>';
             return;
         }
-
+    
         results.forEach(actor => {
             const actorItem = document.createElement('div');
             actorItem.classList.add('actor-item');
+            
+            // Vérifie si profile_path existe, sinon utilise l'image par défaut
+            const actorImage = actor.profile_path ? `https://image.tmdb.org/t/p/w185${actor.profile_path}` : defaultImage;
+            
             actorItem.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w185${actor.profile_path || ''}" alt="${actor.name}" onerror="this.src='${defaultImage}';">
+                <img src="${actorImage}" alt="${actor.name}" onerror="this.src='${defaultImage}';">
                 <h3>${actor.name}</h3>
             `;
             resultsContainer.appendChild(actorItem);
