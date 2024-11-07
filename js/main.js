@@ -5,7 +5,7 @@
 //Display list of films
 //Display actors' images
 //Save consultation history
-// js/main.js
+
 import { TOKEN } from "./env.js";
 import { URL } from "./env.js";
 
@@ -13,15 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('search-form');
     const actorNameInput = document.getElementById('actor-name');
     const resultsContainer = document.getElementById('results-container');
-    const defaultImage = 'default-image.jpg'; // Chemin de l'image par défaut
+    const defaultImage = '../assets/images/default-image.jpg'; 
 
-    // Écouteur d'événement pour le formulaire de recherche
+// Écouteur d'événement pour le formulaire de recherche
     searchForm.addEventListener('submit', (event) => {
         event.preventDefault(); // Empêche le rechargement de la page
-
-        const actorName = actorNameInput.value.trim(); // Récupère et nettoie l'entrée de l'utilisateur
+        
+// Récupère et nettoie l'entrée de l'utilisateur
+        const actorName = actorNameInput.value.trim(); 
         if (actorName !== '') {
-            searchActor(actorName); // Appelle la fonction pour lancer la recherche
+            searchActor(actorName); 
         }
     });
 
