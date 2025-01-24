@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Actors Quest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actors Quest - Search for Movie Actors</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -10,25 +11,25 @@
         <h1>Actors Quest</h1>
     </header>
     <main>
-        <!-- Section de recherche -->
+        <!-- Zone de recherche -->
         <section id="search-section">
             <form id="search-form">
                 <label for="actor-name">Search</label>
-                <input type="text" id="actor-name" name="actor-name" placeholder="Enter actor's name" required>
+                <input type="text" id="actor-name" name="actor-name" placeholder="Enter actor's name" required aria-label="Enter actor's name">
                 <button type="submit">🔍</button>
             </form>
         </section>
 
         <!-- Conteneur principal pour les résultats et les détails -->
         <section id="main-container">
-            <!-- Zone des résultats (bleue) -->
+            <!-- Zone d'affichage des résultats de la recherche -->
             <div id="results-container">
-                <!-- Les résultats de la recherche s'afficheront ici -->
+                <!-- Les résultats seront insérés ici via JavaScript -->
             </div>
 
-            <!-- Zone d'affichage des informations de l'acteur (verte) -->
-            <div id="display-container">
-                <!-- Les informations détaillées de l'acteur s'afficheront ici -->
+            <!-- Zone d'affichage des informations détaillées de l'acteur -->
+            <div id="details-container">
+                <!-- Les détails seront insérés ici via JavaScript -->
             </div>
         </section>
     </main>
@@ -36,4 +37,3 @@
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
-

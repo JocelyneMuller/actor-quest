@@ -1,122 +1,82 @@
-/* Réinitialisation des marges et paddings */
-* {
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-}
-
+/* Header */
 header {
     background-color: #ffcb39;
-    color: rgb(0, 0, 0);
+    color: white;
     padding: 20px;
     text-align: center;
-    font-size: 1.5rem;
 }
 
-main {
-    padding: 20px;
-}
-
-/* Style de la section de recherche */
+/* Search Section */
 #search-section {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-#search-form {
-    display: flex;
-    align-items: center;
-}
-
-#search-form input[type="text"] {
-    padding: 10px;
     margin: 20px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    text-align: center;
+}
+
+#search-form input {
+    padding: 10px;
+    width: 300px;
+    margin-right: 10px;
 }
 
 #search-form button {
+    padding: 10px 15px;
     background-color: #ffcb39;
     color: white;
     border: none;
-    padding: 10px;
-    margin-left: 5px;
     cursor: pointer;
-    border-radius: 4px;
 }
 
-/* Conteneur principal pour les résultats et les détails */
+#search-form button:hover {
+    background-color: #005a4f;
+}
+
+/* Main container */
 #main-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    padding : 20px;
+    justify-content: space-between;
+    padding: 20px;
 }
 
-#results-container,
-#display-container {
-    width: 300px; /* Largeur fixe pour former un carré */
-    height: 300px; /* Hauteur fixe pour former un carré */
+#results-container, #details-container {
+    width: 45%;
+    height: 300px;
     overflow-y: auto;
+    border: 1px solid #ccc;
     padding: 10px;
-    box-sizing: border-box;
-    border: 2px solid; /* Bordure pour démarquer les zones */
+    border-radius: 5px;
 }
 
-/*style to show results as a grid */
-.actor-item {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    margin: 10px;
-    text-align: center;
-}
-
-.actor-item img {
-        width: 100px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 5px;
-        margin-bottom: 5px;
-    }
-    
-.actor-item h3 {
-        font-size: 1rem;
-        margin: 0;
-    }
-
-
-/* Zone des résultats (bleue) */
 #results-container {
-    background-color: #e6f2ff;
-    border-color: #a3c4f3;
+    background-color: #e0f7fa; /* Bleu clair */
 }
 
-/* Zone d'affichage des informations de l'acteur (verte) */
-#display-container {
-    flex: 2’’;
-    background-color: #e6ffe6;
-    border-color: #a3f3a3;
+#details-container {
+    background-color: #e8f5e9; /* Vert clair */
 }
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-    #main-container {
-        flex-direction: column;
-        align-items: center;
-    }
+/* Actor Item */
+.actor-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-    #results-container,
-    #display-container {
-        width: 100%;
-        height: auto;
-    }
+.actor-item:hover {
+    background-color: #f0f0f0;
+}
+
+.actor-item.selected {
+    background-color: #dceffc;
+    border-color: #007BFF;
 }
