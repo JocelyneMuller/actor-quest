@@ -1,4 +1,4 @@
-/* Global styles */
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,17 +6,20 @@ body {
     box-sizing: border-box;
 }
 
-/* Header */
 header {
-    background-color: #ffcb39;
+    background-color: #00796b;
     color: white;
-    padding: 20px;
     text-align: center;
+    padding: 15px;
+}
+
+main {
+    padding: 20px;
 }
 
 /* Search Section */
 #search-section {
-    margin: 20px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -24,13 +27,16 @@ header {
     padding: 10px;
     width: 300px;
     margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 #search-form button {
-    padding: 10px 15px;
-    background-color: #ffcb39;
-    color: white;
+    padding: 10px;
     border: none;
+    border-radius: 5px;
+    background-color: #00796b;
+    color: white;
     cursor: pointer;
 }
 
@@ -38,38 +44,39 @@ header {
     background-color: #005a4f;
 }
 
-/* Main container */
+/* Main Layout */
 #main-container {
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    gap: 20px;
 }
 
-#results-container, #details-container {
-    width: 45%;
-    height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-}
-
+/* Results Container */
 #results-container {
-    background-color: #e0f7fa; /* Bleu clair */
-}
-
-#details-container {
-    background-color: #e8f5e9; /* Vert clair */
-}
-
-/* Actor Item */
-.actor-item {
+    width: 30%;
     padding: 10px;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+    height: 400px;
+}
+
+.actor-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.actor-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
 .actor-item:hover {
@@ -78,5 +85,76 @@ header {
 
 .actor-item.selected {
     background-color: #dceffc;
-    border-color: #007BFF;
 }
+
+/* Details Container */
+#details-container {
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+#actor-info img {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+#actor-info h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+#filmography-container {
+    margin-top: 20px;
+}
+
+#filmography-list {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#filmography-list li {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+#filmography-list li:last-child {
+    border-bottom: none;
+}
+#history-container {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fdecea; /* Rouge clair */
+    margin-top: 20px;
+    height: 100px;
+    overflow-y: auto; /* Scroll si nécessaire */
+}
+
+#history-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#history-list li {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+}
+
+#history-list li:last-child {
+    border-bottom: none;
+}
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actors Quest - Search for Movie Actors</title>
+    <title>Actors Quest</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -15,31 +15,38 @@
         <section id="search-section">
             <form id="search-form">
                 <label for="actor-name">Search</label>
-                <input type="text" id="actor-name" name="actor-name" placeholder="Enter actor's name" required aria-label="Enter actor's name">
+                <input type="text" id="actor-name" placeholder="Enter actor's name" required>
                 <button type="submit">🔍</button>
             </form>
         </section>
 
         <!-- Conteneur principal pour les résultats et les détails -->
         <section id="main-container">
-            <!-- Zone d'affichage des résultats de la recherche -->
+            <!-- Zone des résultats (listes des acteurs) -->
             <div id="results-container">
-                <!-- Les résultats seront insérés ici via JavaScript -->
+                <!-- Les résultats s'afficheront ici via JavaScript -->
             </div>
 
-            <!-- Zone d'affichage des informations détaillées de l'acteur -->
+            <!-- Zone des détails (infos acteur + films) -->
             <div id="details-container">
-                <!-- Les détails seront insérés ici via JavaScript -->
+                <!-- Les détails s'afficheront ici via JavaScript -->
+                <div id="actor-info">
+                    <!-- Informations de l'acteur -->
+                </div>
+                <div id="filmography-container">
+                    <h3>Films</h3>
+                    <ul id="filmography-list"></ul>
+                </div>
             </div>
-            <!-- Zone d'affichage des informations détaillées de l'acteur -->
-            <div id="details-container">
-            <!-- Les détails seront insérés ici via JavaScript -->
-                <h3>Filmographie :</h3>
-                <ul id="filmography-list"></ul>
+
+            <!-- Zone de l'historique (films vus + films en cours) -->
+            <div id="history-container">
+                <h3>Historique</h3>
+                <ul id="history-list"></ul>
             </div>
         </section>
     </main>
-    
+
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
