@@ -1,7 +1,7 @@
 //i am going to code a new project here//
 // Create a web application using html, css and javascript that lets you search for an actor and display information about that actor or actress, display a list of his or her films, display images of actors/actresses, and keep a history of consultations.
 //these are the MAIN FEATURES :
-//Search for an actor or actress Display information about this person 
+//Search for an actor or actress Display information about this person
 //Display list of films
 //Display actors' images
 //Save consultation history
@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailsContainer = document.getElementById('details-container');
     const actorInfoContainer = document.getElementById('actor-info');
     const filmographyList = document.getElementById('filmography-list');
+    const historyList = document.getElementById('history-list');
+
+    // Charger l'historique au démarrage
+    loadHistory();
 
     searchForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -75,6 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2>${actor.name}</h2>
                     <p>${actor.biography || 'Biography not available.'}</p>
                 `;
+
+                // Mettre à jour l'historique avec l'acteur consulté
+                updateHistory(actor.name, actor.id, actor.profile_path);
             })
             .catch(error => console.error('Error fetching actor details:', error));
 
@@ -88,9 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayFilmography(movies) {
         filmographyList.innerHTML = '';
-        movies.slice(0, 5).forEach(movie => {
+        movies.slice(0, 10).forEach(movie => {
             const listItem = document.createElement('li');
-            listItem.textContent = `${movie.title || 'Unknown title'}`;
+            listItem.textContent = `${movie.title || 'Unknown title'} (${movie.release_date ? movie.release_date.substring(0, 4) : 'N/A'})`;
             filmographyList.appendChild(listItem);
         });
     }
@@ -99,26 +106,34 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.actor-item').forEach(item => item.classList.remove('selected'));
         selectedItem.classList.add('selected');
     }
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const historyContainer = document.getElementById('history-container');
-    const historyList = document.getElementById('history-list');
 
-    // Charger l'historique à partir du sessionStorage
-    loadHistory();
+    // === FONCTIONS HISTORIQUE ===
 
-    function updateHistory(actorName) {
-        // Récupérer l'historique actuel
+    function updateHistory(actorName, actorId, profilePath) {
+        // Récupérer l'historique actuel depuis sessionStorage
         let history = JSON.parse(sessionStorage.getItem('actorHistory')) || [];
 
-        // Ajouter le nouvel acteur au début (si ce n'est pas un doublon)
-        if (!history.includes(actorName)) {
-            history.unshift(actorName);
+        // Créer l'objet acteur
+        const actorData = {
+            name: actorName,
+            id: actorId,
+            profile_path: profilePath
+        };
+
+        // Vérifier si l'acteur existe déjà (par ID)
+        const existingIndex = history.findIndex(actor => actor.id === actorId);
+
+        if (existingIndex !== -1) {
+            // Si l'acteur existe déjà, le retirer de sa position actuelle
+            history.splice(existingIndex, 1);
         }
+
+        // Ajouter l'acteur au début de l'historique
+        history.unshift(actorData);
 
         // Limiter l'historique à 3 acteurs
         if (history.length > 3) {
-            history.pop();
+            history = history.slice(0, 3);
         }
 
         // Sauvegarder l'historique mis à jour dans le sessionStorage
@@ -138,31 +153,27 @@ document.addEventListener('DOMContentLoaded', () => {
         // Effacer l'historique actuel affiché
         historyList.innerHTML = '';
 
-        // Afficher chaque acteur dans la liste
+        if (history.length === 0) {
+            historyList.innerHTML = '<li style="color: #999;">Aucun historique</li>';
+            return;
+        }
+
+        // Afficher chaque acteur dans la liste avec photo
         history.forEach(actor => {
             const listItem = document.createElement('li');
-            listItem.textContent = actor;
+            listItem.classList.add('history-item');
+            listItem.innerHTML = `
+                <img src="${actor.profile_path ? `https://image.tmdb.org/t/p/w45${actor.profile_path}` : defaultImage}" alt="${actor.name}">
+                <span>${actor.name}</span>
+            `;
+
+            // Rendre l'historique cliquable pour recharger l'acteur
+            listItem.style.cursor = 'pointer';
+            listItem.addEventListener('click', () => {
+                displayActorDetails(actor.id);
+            });
+
             historyList.appendChild(listItem);
         });
-    }
-
-    // Appeler `updateHistory` après avoir affiché les détails de l'acteur
-    function displayActorDetails(actorId) {
-        const actorUrl = `${URL}/person/${actorId}?api_key=${TOKEN}&language=en-US`;
-
-        fetch(actorUrl)
-            .then(response => response.json())
-            .then(actor => {
-                // Afficher les détails de l'acteur
-                detailsContainer.innerHTML = `
-                    <img src="${actor.profile_path ? `https://image.tmdb.org/t/p/w185${actor.profile_path}` : defaultImage}" alt="${actor.name}">
-                    <h2>${actor.name}</h2>
-                    <p>${actor.biography || 'Biography not available.'}</p>
-                `;
-
-                // Mettre à jour l'historique avec le nom de l'acteur
-                updateHistory(actor.name);
-            })
-            .catch(error => console.error('Error fetching actor details:', error));
     }
 });
